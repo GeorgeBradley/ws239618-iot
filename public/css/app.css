@@ -15,24 +15,25 @@ h3 {
     letter-spacing: 0.01rem;
 }
 body {
+
     padding:0;
     margin:0;
     font-family: 'Roboto', sans-serif;
+    background-color:rgb(98, 98, 250);
+
+
 }
 .container {
     max-width:1200px;
     margin-inline: auto;
 }
 
-.main-content {
-    min-height:100vh;
-    background-color:rgb(98, 98, 250);
-    display:grid;
-
-    gap:2rem;
-    place-items: center;
-
+.container-xl {
+    max-width:1500px;
+    margin-inline: auto;
 }
+
+
 .active {
     color: var(--standard-white);
 }
@@ -44,21 +45,27 @@ body {
 .heating {
     color: var(--heating);
 }
+.primary-header {
+    grid-column: 1 / -1;
+}
 .main-title {
     font-size:3rem;
     color:#ffff;
     text-align: center;
+    
+    align-self: center;
+ 
 }
 .temperatures {
     display:grid;
-    grid-template-columns: repeat(12, 1fr);
+
 
     gap:2rem;
     place-items:center;
 }
 .circle {
-    width: 400px;
-    height:400px;
+    width: 250px;
+    height:250px;
     border-radius: 50%;
     position: relative;
 }
@@ -69,10 +76,13 @@ body {
 .status-group {
   
     display:flex;
+    padding:1rem;
     gap:5rem;
     justify-content: space-evenly;
     color:hsl(0, 0%, 80%);
-    grid-column: 1 / -1;
+
+    flex-wrap: wrap;
+    justify-self: center;
 }
 #chart-1 {
     width:100%;
@@ -84,16 +94,48 @@ body {
     height: 100%;
 
 }
+.group {
+
+display:flex;
+justify-content: center;
+gap:1rem;
+width:100%;
+
+}
+
+.centre {
+  
+    position: relative;
+ 
+   /* width:100%;
+    min-width:60%; */
+
+
+    flex-basis:100%;
+  
+    overflow: hidden;
+    
+}
+#line-chart 
+{ 
+    border-radius: 10px;
+    overflow: hidden;
+    position: absolute;
+    min-width:100%;
+    min-height:100%;
+}
+
 .circle:nth-child(1) {
  
   
-    background-color: firebrick;
+   
+    
 }
 
 .circle:nth-child(2) {
    
     
-
+  
 }
 
 .icon-container {
@@ -105,18 +147,39 @@ body {
 
 footer {
     color:#ffff;
+    text-align: center;
 }
 
+.left-sidebar {
 
+    flex-basis:10%;
+  
+}
+
+.line-graph {
+
+
+}
+.right-sidebar {
+
+
+}
 /* FORM */
 
 
 
-@media screen and (max-width: 768px) {
-    .temperatures {
-        display:grid;
-        grid-template-columns: 1fr;
-        gap:1rem;
-        place-items: center;
+@media screen and (max-width: 1200px) {
+    
+    .group 
+    {
+
+        align-items: center;
+        flex-direction: column;
+        
+    }
+
+    .centre {
+        min-height:200px;
+        min-width: 500px;;
     }
 }

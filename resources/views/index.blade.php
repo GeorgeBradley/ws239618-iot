@@ -85,65 +85,115 @@ setInterval(function() {
   chart.draw(data, options);
 }, 26000);
 }
+
+//LINE CHART
+
+google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawCurveTypes);
+
+function drawCurveTypes() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', 'Dogs');
+      data.addColumn('number', 'Cats');
+
+      data.addRows([
+        [0, 0, 0],    [1, 10, 5],   [2, 23, 15],  [3, 17, 9],   [4, 18, 10],  [5, 9, 5],
+        [6, 11, 3],   [7, 27, 19],  [8, 33, 25],  [9, 40, 32],  [10, 32, 24], [11, 35, 27],
+        [12, 30, 22], [13, 40, 32], [14, 42, 34], [15, 47, 39], [16, 44, 36], [17, 48, 40],
+        [18, 52, 44], [19, 54, 46], [20, 42, 34], [21, 55, 47], [22, 56, 48], [23, 57, 49],
+        [24, 60, 52], [25, 50, 42], [26, 52, 44], [27, 51, 43], [28, 49, 41], [29, 53, 45],
+        [30, 55, 47], [31, 60, 52], [32, 61, 53], [33, 59, 51], [34, 62, 54], [35, 65, 57],
+        [36, 62, 54], [37, 58, 50], [38, 55, 47], [39, 61, 53], [40, 64, 56], [41, 65, 57],
+        [42, 63, 55], [43, 66, 58], [44, 67, 59], [45, 69, 61], [46, 69, 61], [47, 70, 62],
+        [48, 72, 64], [49, 68, 60], [50, 66, 58], [51, 65, 57], [52, 67, 59], [53, 70, 62],
+        [54, 71, 63], [55, 72, 64], [56, 73, 65], [57, 75, 67], [58, 70, 62], [59, 68, 60],
+        [60, 64, 56], [61, 60, 52], [62, 65, 57], [63, 67, 59], [64, 68, 60], [65, 69, 61],
+        [66, 70, 62], [67, 72, 64], [68, 75, 67], [69, 80, 72]
+      ]);
+
+      var options = {
+        hAxis: {
+          title: 'Time'
+        },
+        vAxis: {
+          title: 'Popularity'
+        },
+        series: {
+          1: {curveType: 'function'}
+        }
+      };
+
+      var linechart = new google.visualization.LineChart(document.getElementById('line-chart'));
+      linechart.draw(data, options);
+    }
  </script>
 <body>
 
-<main class="main-content">
-<section class="temperatures-section">
+
+<header class="primary-header">
+
     <h1 class="main-title">WS239618-IoT</h1>
-    <div class="container">
-        <div class="temperatures">
-            <div class="status-group">
-      
-                <div class="icon-container heating">
-                    <span class="icon fa-solid fa-fire"></span>
-                    <h3>Heating</h3>
-                </div>
-                
-                <div class="icon-container active">
-                    <span class="icon fa-solid fa-power-off"></span>
-                    <h3>Off</h3>
-                </div>
-                <div class="icon-container">
-                    <span class="icon fa-solid fa-fan"></span>
-                    <h3>Ventilation</h3>
-                </div>
-                
-                <div class="icon-container cold">
-                    <span class="icon fa-solid fa-snowflake"></span>
-                    <h3>A/C</h3>
-                </div>
-                
-            </div>
-           <div class="circle">
+
+</header>
+
+    <section class="status-group container">
+       
+        <div class="icon-container heating">
+            <span class="icon fa-solid fa-fire"></span>
+            <h3>Heating On</h3>
+        </div>
+        
+        <div class="icon-container active">
+            <span class="icon fa-solid fa-power-off"></span>
+            <h3>Off</h3>
+        </div>
+        <div class="icon-container active">
+            <span class="icon fa-solid fa-door-open"></span>
+          
+            <h3>Window Open</h3>
+        </div>
+        <div class="icon-container">
+            <span class="icon fa-solid fa-fan"></span>
+            <h3>Ventilation On</h3>
+        </div>
+        
+        <div class="icon-container cold">
+            <span class="icon fa-solid fa-snowflake"></span>
+            <h3>Air Conditioning On</h3>
+        </div>
+        
+    </section>
+
+    
+    <div class="group container">
+        <aside class="left-sidebar">
+            <div class="circle">
                 <div id="chart-1" ></div>
             </div>
             <div class="circle">
-                <div id="chart-2" ></div>
-            </div>
+              <div id="chart-2" ></div>
+          </div>
+          
+        </aside>
+        
+    
+        <section class="centre">
+          <div id="line-chart"></div>
+        </section>
+   
+       
+      
+      
 
-           
+       
     </div>
     
-</section>    
-       
-
-<section class="indicators">
-
-<div class="container">
-
-   
-
-</div>
-
-</section>
 
 
 <footer>
     <p>WS239618 &copy; 2022</p>
 </footer>    
-</main>
-
     
 </body>
 </html>
