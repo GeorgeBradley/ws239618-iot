@@ -183,3 +183,10 @@ footer {
         min-width: 500px;;
     }
 }
+
+@media screen and (max-width: 500px) {
+    .centre {
+        min-height:200px;
+        min-width: 300px;;
+    }
+}
