@@ -12,6 +12,22 @@
     <title>Document</title>
 </head>
 <body>
+
+    <div class="login-container">
+
+        <form action="" method="POST">
+            <div class="form-control">
+                <label for="">Username:</label>
+                <input type="text" placeholder="username">
+            </div>
+            <div class="form-control">
+                <label for="">Password:</label>
+                <input type="password" placeholder="password">
+            </div>  
+            <button type="submit" class="btn">Login</button>
+        </form>
+
+    </div>
     
 </body>
 </html>

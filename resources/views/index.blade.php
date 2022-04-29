@@ -187,12 +187,7 @@ function drawCurveTypes() {
         <section class="centre">
           <div id="line-chart"></div>
         </section>
-   
-       
-      
-      
 
-       
     </div>
     
 

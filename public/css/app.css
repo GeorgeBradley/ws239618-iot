@@ -166,7 +166,49 @@ footer {
 }
 /* FORM */
 
+.login-container {
+    min-height:100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    padding:1rem;
+}
 
+form {
+    font-size:1.5rem;
+   border-radius: 10px;
+   
+    width:100%;
+    max-width:400px;
+    background-color: var(--standard-white);
+    display:flex;
+    gap:1rem;
+    padding:2rem;
+    flex-direction: column;
+
+}
+
+.form-control {
+    display:flex;
+    flex-direction: column;
+    gap:.5rem;
+    
+}
+
+
+.form-control input {
+
+    padding:1rem;
+    border:1px solid #ccc;
+}
+.btn {
+    padding:1rem;
+    border:none;
+    box-shadow: black 1px 2px 4px 1px;
+    background-color: var(--heating);
+    color:var(--standard-white);
+    font-weight: bold;
+}
 
 @media screen and (max-width: 1200px) {
     
