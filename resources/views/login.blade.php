@@ -14,16 +14,52 @@
 <body>
 
     <div class="login-container">
-
-        <form action="" method="POST">
+        
+       
+        <form action="{{ route('login') }}" method="POST" class="login-form">
+            @if (session('status'))
+        <div class="error-message-container ta-c">
+            <p class="error-message">
+                {{  session('status')  }}
+            </p>
+           
+        </div>
+       
+        @endif
+            @csrf
+            <h3 class="form-title">Login</h3>
             <div class="form-control">
-                <label for="">Username:</label>
-                <input type="text" placeholder="username">
+              
+                <input type="email" value="{{ old('email') }}" name="email" placeholder="email" class="@error('email') red-border  @enderror">
             </div>
+            @error('email')
+               
+                    <div class="error-message-container">
+                        <p class="error-message">
+                            {{ $message }}
+                        </p>
+                       
+                    </div>
+                   
+             
+            
+                @enderror
             <div class="form-control">
-                <label for="">Password:</label>
-                <input type="password" placeholder="password">
+             
+                <input type="password" name="password" value="{{ old('password') }}" placeholder="password" class="@error('password') red-border  @enderror">
             </div>  
+            @error('password')
+               
+            <div class="error-message-container">
+                <p class="error-message">
+                    {{ $message }}
+                </p>
+               
+            </div>
+           
+     
+    
+        @enderror
             <button type="submit" class="btn">Login</button>
         </form>
 

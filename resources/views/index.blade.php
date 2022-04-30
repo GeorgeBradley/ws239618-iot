@@ -140,7 +140,11 @@ function drawCurveTypes() {
 <header class="primary-header">
 
     <h1 class="main-title">WS239618-IoT</h1>
-
+    <form action="{{ route('logout') }}" method="POST">
+      @csrf
+      <button type="submit" class="btn-logout">Logout</button>
+  </form>
+ 
 </header>
 
     <section class="status-group container">
