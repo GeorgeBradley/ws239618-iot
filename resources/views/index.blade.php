@@ -14,18 +14,7 @@
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
 </script>
 
-<script>
-   function getMessage() {
-      $.ajax({
-         type:'POST',
-         url:'/getmsg',
-         data:'_token = <?php echo csrf_token() ?>',
-         success:function(data) {
-            $("#msg").html(data.msg);
-         }
-      });
-   }
-</script>
+
 </head>
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -146,7 +135,21 @@ function drawCurveTypes() {
       linechart.draw(data, options);
     }
  </script>
-
+ 
+    <script>
+      function getMessage() {
+         $.ajax({
+            type:'POST',
+            url:'/msg',
+            data:'_token = <?php echo csrf_token() ?>',
+            success:function(data) {
+               $("#msg").html(data.msg);
+            }
+         });
+      }
+   
+      $("#inside-temp-reading").html("JJJJJJJJJJ");
+   </script>
 
 <body>
 
@@ -192,7 +195,7 @@ function drawCurveTypes() {
     
     <div class="group container">
         <aside class="left-sidebar">
-          <h1 class="inside-temp-reading">32</h1>
+          <h1 id="inside-temp-reading">32</h1>
             <div class="circle">
                 <div id="chart-1" ></div>
             </div>
