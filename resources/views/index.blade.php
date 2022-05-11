@@ -11,7 +11,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     
 <title>WS239618 -  IoT Home</title>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+</script>
 
+<script>
+   function getMessage() {
+      $.ajax({
+         type:'POST',
+         url:'/getmsg',
+         data:'_token = <?php echo csrf_token() ?>',
+         success:function(data) {
+            $("#msg").html(data.msg);
+         }
+      });
+   }
+</script>
 </head>
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -178,10 +192,12 @@ function drawCurveTypes() {
     
     <div class="group container">
         <aside class="left-sidebar">
+          <h1 class="inside-temp-reading">32</h1>
             <div class="circle">
                 <div id="chart-1" ></div>
             </div>
             <div class="circle">
+              <h1 class="outside-temp-reading">32</h1>
               <div id="chart-2" ></div>
           </div>
           
@@ -189,6 +205,7 @@ function drawCurveTypes() {
         
     
         <section class="centre">
+     
           <div id="line-chart"></div>
         </section>
 
