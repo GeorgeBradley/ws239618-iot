@@ -11,15 +11,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     
 <title>WS239618 -  IoT Home</title>
-<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
-</script>
+
 
 
 </head>
-<script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
    google.charts.load('current', {'packages':['gauge']});
@@ -135,21 +131,7 @@ function drawCurveTypes() {
       linechart.draw(data, options);
     }
  </script>
- 
-    <script>
-      function getMessage() {
-         $.ajax({
-            type:'POST',
-            url:'/msg',
-            data:'_token = <?php echo csrf_token() ?>',
-            success:function(data) {
-               $("#msg").html(data.msg);
-            }
-         });
-      }
-   
-      $("#inside-temp-reading").html("JJJJJJJJJJ");
-   </script>
+
 
 <body>
 
@@ -195,7 +177,10 @@ function drawCurveTypes() {
     
     <div class="group container">
         <aside class="left-sidebar">
-          <h1 id="inside-temp-reading">32</h1>
+          <h1 id="inside-temp-reading">
+          
+            
+          </h1>
             <div class="circle">
                 <div id="chart-1" ></div>
             </div>
@@ -214,11 +199,46 @@ function drawCurveTypes() {
 
     </div>
     
+    <div class="content">
+
+    </div>
 
 
 <footer>
     <p>WS239618 &copy; 2022</p>
 </footer>    
+
+   <script>
+ 
+
+   
+     
     
+  </script>
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+
+  <script>
+    
+    function getMessage() {
+     
+     $.ajax({
+        type:'GET',
+        url:'/msg',
+        data:'_token = <?php echo csrf_token() ?>',
+        success:function(data) {
+           $("#inside-temp-reading").text(data.msg[0].temperature);
+        }
+     });
+  }
+        $(document).ready( function() {
+
+          getMessage();
+          
+      
+      });
+    </script>
 </body>
 </html>
