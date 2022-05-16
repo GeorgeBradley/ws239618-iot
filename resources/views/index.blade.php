@@ -18,14 +18,41 @@
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-   google.charts.load('current', {'packages':['gauge']});
-   google.charts.setOnLoadCallback(drawChart);
-   google.charts.setOnLoadCallback(drawChart2);
-   function drawChart() {
 
+   google.charts.load('current', {'packages':['gauge']});
+
+
+   google.charts.setOnLoadCallback(function load(){
+    $.ajax({
+        type:'GET',
+        url:'/msg',
+        data:'_token = <?php echo csrf_token() ?>',
+        success:function(data) {
+          drawChart(data);
+        },
+       
+     });
+      
+   });
+   google.charts.setOnLoadCallback(function load(){
+    $.ajax({
+        type:'GET',
+        url:'/msg',
+        data:'_token = <?php echo csrf_token() ?>',
+        success:function(data) {
+          drawChart2(data);
+        },
+       
+     });
+   });
+
+ 
+   function drawChart(dataParam) {
+    
+    
      var data = google.visualization.arrayToDataTable([
        ['Label', 'Value'],
-       ['Inside', 80],
+       ['Inside', parseInt(dataParam.insideTemperature[0].temperature)]
      ]);
 
      var options = {
@@ -54,11 +81,11 @@
      }, 26000);
    }
  
-  function drawChart2() {
+  function drawChart2(dataParam) {
 
   var data = google.visualization.arrayToDataTable([
   ['Label', 'Value'],
-  ['Outside', 80],
+  ['Outside', parseInt(dataParam.outsideTemperature[0].temperature)],
 
 
 ]);
@@ -93,6 +120,8 @@ setInterval(function() {
 
 google.charts.load('current', {packages: ['corechart', 'line']});
 google.charts.setOnLoadCallback(drawCurveTypes);
+
+    
 
 function drawCurveTypes() {
       var data = new google.visualization.DataTable();
@@ -164,16 +193,17 @@ function drawCurveTypes() {
     </section>
 
     
-    <div class="group container">
-        <aside class="left-sidebar">
-          <h1 id="inside-temp-reading" class="temp-reading"></h1>
-          <small>Last updated: <span id="last-updated-inside-temp"></span></small>
-            <div class="circle">
+    <div class="group container color-white">
+        <aside class="left-sidebar center-text">
+          <h1 id="inside-temp-reading" class="center-text"></h1>
+          <small>Last updated: <strong><span id="last-updated-inside-temp" class=""></span></strong></small>
+            <div class="circle center-text">
                 <div id="chart-1" ></div>
             </div>
-            <div class="circle">
-              <h1 id="outside-temp-reading" class="temp-reading">32</h1>
-              <small>Last updated: <span id="last-updated-outside-temp"></span></small>
+
+            <div class="circle center-text">
+              <h1 id="outside-temp-reading" class="center-text">32</h1>
+              <small>Last updated: <strong><span id="last-updated-outside-temp" class=""></span></strong></small>
               <div id="chart-2"></div>
 
           </div>

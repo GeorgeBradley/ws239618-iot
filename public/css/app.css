@@ -269,6 +269,10 @@ footer {
     border:1px solid #ff0000 ;
 }
 
-.temp-reading {
+.center-text {
     text-align: center;
+}
+.color-white {
+
+    color:#ffff;
 }
