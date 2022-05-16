@@ -68,17 +68,23 @@
      chart.draw(data, options);
 
      setInterval(function() {
-       data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
-       chart.draw(data, options);
-     }, 13000);
-     setInterval(function() {
-       data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
-       chart.draw(data, options);
-     }, 5000);
-     setInterval(function() {
-       data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
-       chart.draw(data, options);
-     }, 26000);
+
+  
+      $.ajax({
+        type:'GET',
+        url:'/msg',
+        data:'_token = <?php echo csrf_token() ?>',
+        success:function(successData) {
+          
+          data.setValue(0, 1, parseInt(successData.insideTemperature[0].temperature));
+          chart.draw(data, options);
+        },
+       
+     });
+
+       
+     }, 2000);
+    
    }
  
   function drawChart2(dataParam) {
@@ -103,17 +109,19 @@ var chart = new google.visualization.Gauge(document.getElementById('chart-2'));
 chart.draw(data, options);
 
 setInterval(function() {
-  data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
-  chart.draw(data, options);
-}, 13000);
-setInterval(function() {
-  data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
-  chart.draw(data, options);
-}, 5000);
-setInterval(function() {
-  data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
-  chart.draw(data, options);
-}, 26000);
+  $.ajax({
+        type:'GET',
+        url:'/msg',
+        data:'_token = <?php echo csrf_token() ?>',
+        success:function(successData) {
+
+          data.setValue(0, 1, parseInt(successData.outsideTemperature[0].temperature));
+          chart.draw(data, options);
+        },
+       
+     });
+}, 2000);
+
 }
 
 //LINE CHART
