@@ -9,20 +9,31 @@ use App\Http\Controllers\Controller;
 
 class AjaxController extends Controller {
    public function index() {
-   $sqlQuery = "
-	SELECT
+   $insideTemperatureSQL = "
+	 SELECT
     temperature_log.temperature,
-    temperature_log.TIMESTAMP
+    temperature_log.TIMESTAMP AS last_updated
     FROM temperature_log
     INNER JOIN sensors ON sensors.sensor_id = temperature_log.sensor_id
     WHERE sensors.isInternal = 0
 
     ORDER BY temperature_log.TIMESTAMP
     LIMIT 1
-";
-$result = DB::select(DB::raw($sqlQuery));
+   ";
+   $outsideTemperatureSQL = "
+   SELECT
+   temperature_log.temperature,
+   temperature_log.TIMESTAMP AS last_updated
+   FROM temperature_log
+   INNER JOIN sensors ON sensors.sensor_id = temperature_log.sensor_id
+   WHERE sensors.isInternal = 1
 
+   ORDER BY temperature_log.TIMESTAMP
+   LIMIT 1
+   ";
+$insideTemperature = DB::select(DB::raw($insideTemperatureSQL));
 
-return response()->json(array('msg'=> $result), 200);
+$outsideTemperature = DB::select(DB::raw($outsideTemperatureSQL));
+return response()->json(array('insideTemperature'=> $insideTemperature, 'outsideTemperature' => $outsideTemperature), 200);
    }
 }

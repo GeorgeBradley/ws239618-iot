@@ -268,3 +268,7 @@ footer {
 .red-border {
     border:1px solid #ff0000 ;
 }
+
+.temp-reading {
+    text-align: center;
+}
