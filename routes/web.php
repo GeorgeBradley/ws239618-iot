@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\AjaxController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 
@@ -16,9 +17,11 @@ use App\Http\Controllers\LogoutController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->middleware('auth')->name('home');
+// Route::get('/', function () {
+//     return view('index');
+// })->middleware('auth')->name('home');
+
+Route::get('/', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -26,4 +29,5 @@ Route::post('/login',[LoginController::class, 'store']);
 Route::post('/logout', [LogoutController::class, 'perform'])->name('logout');
 
 
-Route::get('/msg', [AjaxController::class, 'index'])->name('message');
+Route::get('/msg', [AjaxController::class, 'insideOutsideTemperature'])->name('message');
+Route::get('/avgTemp', [AjaxController::class, 'dailyAverageTemperature']);

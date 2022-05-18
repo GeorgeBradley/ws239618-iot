@@ -67,7 +67,7 @@
 
      chart.draw(data, options);
 
-     setInterval(function() {
+     setInterval(function load() {
 
   
       $.ajax({
@@ -108,7 +108,7 @@ var chart = new google.visualization.Gauge(document.getElementById('chart-2'));
 
 chart.draw(data, options);
 
-setInterval(function() {
+setInterval(function load() {
   $.ajax({
         type:'GET',
         url:'/msg',
@@ -126,36 +126,34 @@ setInterval(function() {
 
 //LINE CHART
 
-google.charts.load('current', {packages: ['corechart', 'line']});
-google.charts.setOnLoadCallback(drawCurveTypes);
 
-    
+var visitor = <?php echo $visitor; ?>;
 
-function drawCurveTypes() {
-      var data = new google.visualization.DataTable();
-      data.addColumn('number', 'X');
-      data.addColumn('number', 'Outside Temperature');
-      data.addColumn('number', 'Inside Temperature');
+console.log(visitor);
 
-      data.addRows([
-        [0, 0, 0]
-      ]);
+google.charts.load('current', {'packages':['corechart']});
 
-      var options = {
-        hAxis: {
-          title: 'Time'
-        },
-        vAxis: {
-          title: 'Popularity'
-        },
-        series: {
-          1: {curveType: 'function'}
-        }
-      };
+google.charts.setOnLoadCallback(lineChart);
 
-      var linechart = new google.visualization.LineChart(document.getElementById('line-chart'));
-      linechart.draw(data, options);
-    }
+function lineChart() {
+
+  var data = google.visualization.arrayToDataTable(visitor);
+
+  var options = {
+
+    title: 'Daily Temperature Average',
+
+    curveType: 'function',
+
+    legend: { position: 'bottom' }
+
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('linechart'));
+
+  chart.draw(data, options);
+
+}
  </script>
 
 
@@ -221,7 +219,7 @@ function drawCurveTypes() {
     
         <section class="centre">
      
-          <div id="line-chart"></div>
+          <div id="linechart"></div>
         </section>
 
     </div>
