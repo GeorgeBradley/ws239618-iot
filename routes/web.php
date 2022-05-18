@@ -31,3 +31,6 @@ Route::post('/logout', [LogoutController::class, 'perform'])->name('logout');
 
 Route::get('/msg', [AjaxController::class, 'insideOutsideTemperature'])->name('message');
 Route::get('/avgTemp', [AjaxController::class, 'dailyAverageTemperature']);
+
+
+Route::get('/msgtwo', [AjaxController::class, 'getStatuses'])->name('messageTwo');

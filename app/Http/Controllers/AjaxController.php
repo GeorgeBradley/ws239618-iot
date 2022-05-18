@@ -8,6 +8,16 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class AjaxController extends Controller {
+
+   public function getStatuses(){
+
+      $query = "SELECT status.s_window, status.s_heating, status.s_ac, status.s_vent, status.s_power FROM status WHERE status.status_id = 1";
+      $statuses = DB::SELECT(DB::raw($query));
+  
+      return response()->json(array('statuses' => $statuses), 200);
+   }
+
+
    public function insideOutsideTemperature() {
    $insideTemperatureSQL = "
 	 SELECT
@@ -39,6 +49,7 @@ $outsideTemperature = DB::select(DB::raw($outsideTemperatureSQL));
 return response()->json(array('insideTemperature'=> $insideTemperature, 'outsideTemperature' => $outsideTemperature), 200);
    }
 
+  
    public static function dailyAverageTemperature(){
 
       $query = "SELECT

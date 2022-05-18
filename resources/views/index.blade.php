@@ -154,6 +154,8 @@ function lineChart() {
   chart.draw(data, options);
 
 }
+
+
  </script>
 
 
@@ -171,29 +173,29 @@ function lineChart() {
 </header>
 
     <section class="status-group container">
-      <div class="icon-container power-active">
+      <div class="icon-container power">
             <span class="icon fa-solid fa-power-off"></span>
-            <h3><span class="power-status">On</span></h3>
+            <h3>Power <span class="power-status">Off</span></h3>
         </div>
-        <div class="icon-container heating-active">
+        <div class="icon-container heating">
             <span class="icon fa-solid fa-fire"></span>
-            <h3>Heating <span class="heating-status">On</span></h3>
+            <h3>Heating <span class="heating-status">Off</span></h3>
         </div>
         
         
-        <div class="icon-container window-opened-active">
+        <div class="icon-container window">
             <span class="icon fa-solid fa-door-open"></span>
           
-            <h3>Window <span class="window-status">Opened</span></h3>
+            <h3>Window <span class="window-status">Closed</span></h3>
         </div>
-        <div class="icon-container vent-active">
+        <div class="icon-container vent">
             <span class="icon fa-solid fa-fan"></span>
-            <h3>Ventilation <span class="fan-status">On</span></h3>
+            <h3>Ventilation <span class="fan-status">Off</span></h3>
         </div>
         
-        <div class="icon-container air-con-active">
+        <div class="icon-container air-con">
             <span class="icon fa-solid fa-snowflake"></span>
-            <h3>Air Conditioning <span class="air-con-status">On</span></h3>
+            <h3>Air Conditioning <span class="air-con-status">Off</span></h3>
         </div>
         
     </section>
@@ -261,11 +263,66 @@ function lineChart() {
         },
        
      });
+
+     
+  }
+  
+  function getMessage2() {
+    $.ajax({
+        type:'GET',
+        url:'/msgtwo',
+        data:'_token = <?php echo csrf_token() ?>',
+        success:function(data) {
+         
+          let windowStatus = data.statuses[0].s_window;
+          let heatingStatus = data.statuses[0].s_heating;
+          let airConStatus = data.statuses[0].s_ac;
+          let ventStatus = data.statuses[0].s_vent;
+          let powerStatus = data.statuses[0].s_power;
+          if (powerStatus != 1) {
+            $(".power").removeClass('power-active');
+            $(".power-status").text("Off");
+          } else {
+            $(".power").addClass('power-active');
+            $(".power-status").text("On");
+          }
+          if (windowStatus != 1) {
+            $(".window").removeClass('window-opened-active');
+            $(".window-status").text("Closed");
+          } else {
+            $(".window").addClass('window-opened-active');
+            $(".window-status").text("Opened");
+          }
+
+          if (heatingStatus != 1) {
+            $(".heating").removeClass('heating-active');
+            $(".heating-status").text("Off");
+          } else {
+            $(".heating").addClass('heating-active');
+            $(".heating-status").text("On");
+          }
+          if (airConStatus != 1) {
+            $(".air-con").removeClass('air-con-active');
+            $(".air-con-status").text("Off");
+          } else {
+            $(".air-con").addClass('air-con-active');
+            $(".air-con-status").text("On");
+          }
+          if (ventStatus != 1) {
+            $(".vent").removeClass('vent-active');
+            $(".vent-status").text("Off");
+          } else {
+            $(".vent").addClass('vent-active');
+            $(".vent-status").text("On");
+          }
+        },
+       
+     });
   }
         $(document).ready( function() {
 
           getMessage();
-          
+          getMessage2();
       
       });
     </script>
