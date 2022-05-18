@@ -268,7 +268,11 @@ function lineChart() {
   }
   
   function getMessage2() {
-    $.ajax({
+
+
+    setInterval(function run(){
+
+      $.ajax({
         type:'GET',
         url:'/msgtwo',
         data:'_token = <?php echo csrf_token() ?>',
@@ -318,6 +322,10 @@ function lineChart() {
         },
        
      });
+  
+    }, 2000);
+  
+   
   }
         $(document).ready( function() {
 
