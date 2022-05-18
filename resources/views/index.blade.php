@@ -171,29 +171,29 @@ function lineChart() {
 </header>
 
     <section class="status-group container">
-       
-        <div class="icon-container heating">
+      <div class="icon-container power-active">
+            <span class="icon fa-solid fa-power-off"></span>
+            <h3><span class="power-status">On</span></h3>
+        </div>
+        <div class="icon-container heating-active">
             <span class="icon fa-solid fa-fire"></span>
-            <h3>Heating On</h3>
+            <h3>Heating <span class="heating-status">On</span></h3>
         </div>
         
-        <div class="icon-container active">
-            <span class="icon fa-solid fa-power-off"></span>
-            <h3>Off</h3>
-        </div>
-        <div class="icon-container active">
+        
+        <div class="icon-container window-opened-active">
             <span class="icon fa-solid fa-door-open"></span>
           
-            <h3>Window Open</h3>
+            <h3>Window <span class="window-status">Opened</span></h3>
         </div>
-        <div class="icon-container">
+        <div class="icon-container vent-active">
             <span class="icon fa-solid fa-fan"></span>
-            <h3>Ventilation On</h3>
+            <h3>Ventilation <span class="fan-status">On</span></h3>
         </div>
         
-        <div class="icon-container cold">
+        <div class="icon-container air-con-active">
             <span class="icon fa-solid fa-snowflake"></span>
-            <h3>Air Conditioning On</h3>
+            <h3>Air Conditioning <span class="air-con-status">On</span></h3>
         </div>
         
     </section>

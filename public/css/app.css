@@ -276,3 +276,20 @@ footer {
 
     color:#ffff;
 }
+
+.heating-active {
+    color:#ff0000;
+}
+.power-active {
+    color:rgb(255, 255, 255);
+}
+.window-opened-active {
+    color:rgb(38, 228, 38);
+}
+.air-con-active, .vent-active {
+
+    color:rgb(77, 240, 255);
+}
+.heating-active{
+    color:rgb(250, 147, 44);
+}
