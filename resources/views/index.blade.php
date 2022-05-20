@@ -250,7 +250,7 @@ function lineChart() {
   <script>
     
     function getMessage() {
-     
+      setInterval(function run(){
      $.ajax({
         type:'GET',
         url:'/msg',
@@ -261,10 +261,8 @@ function lineChart() {
            $("#outside-temp-reading").text(data.outsideTemperature[0].temperature);
            $("#last-updated-outside-temp").text(data.outsideTemperature[0].last_updated);
         },
-       
      });
-
-     
+    }, 2000);
   }
   
   function getMessage2() {
