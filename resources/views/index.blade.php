@@ -177,6 +177,11 @@ function lineChart() {
         <div class="icon-container heating">
             <span class="icon fa-solid fa-fire"></span>
             <h3>Heating <span class="heating-status">Off</span></h3>
+            <div class="toggle-heating toggle button r center">
+            <input type="checkbox" class="checkbox">
+            <div class="knobs"></div>
+            <div class="layer"></div>
+          </div>
         </div>
         
         
@@ -184,15 +189,30 @@ function lineChart() {
             <span class="icon fa-solid fa-door-open"></span>
           
             <h3>Window <span class="window-status">Closed</span></h3>
+            <div class="toggle-window toggle button r center">
+            <input type="checkbox" class="checkbox">
+            <div class="knobs"></div>
+            <div class="layer"></div>
+          </div>
         </div>
         <div class="icon-container vent">
             <span class="icon fa-solid fa-fan"></span>
             <h3>Ventilation <span class="fan-status">Off</span></h3>
+            <div class="toggle-fan toggle button r center">
+            <input type="checkbox" class="checkbox">
+            <div class="knobs"></div>
+            <div class="layer"></div>
+          </div>
         </div>
         
         <div class="icon-container air-con">
             <span class="icon fa-solid fa-snowflake"></span>
             <h3>Air Conditioning <span class="air-con-status">Off</span></h3>
+            <div class="toggle-ac toggle button r center">
+            <input type="checkbox" class="checkbox">
+            <div class="knobs"></div>
+            <div class="layer"></div>
+          </div>
         </div>
         
     </section>
@@ -205,7 +225,7 @@ function lineChart() {
             <div class="icon-container power">
             <span class="icon fa-solid fa-power-off"></span>
             <h3>Outside Temperature <span class="outside-power-status">Off</span></h3>
-            <div class="button r center" id="button-1">
+            <div class="toggle-outside-temp toggle button r center">
             <input type="checkbox" class="checkbox">
             <div class="knobs"></div>
             <div class="layer"></div>
@@ -221,7 +241,7 @@ function lineChart() {
             <div class="icon-container power">
             <span class="icon fa-solid fa-power-off"></span>
             <h3>Inside Temperature <span class="inside-power-status">Off</span></h3>
-            <div class="button r center" id="button-2">
+            <div class="toggle-inside-temp toggle button r center">
             <input type="checkbox" class="checkbox">
             <div class="knobs"></div>
             <div class="layer"></div>

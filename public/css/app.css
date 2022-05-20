@@ -358,9 +358,8 @@ footer {
 }
 
 /* Toggle button */
-#button-1 .knobs:before, #button-2 .knobs:before {
+.toggle .knobs:before{
     content: '';
-   
     position: absolute;
     top: 4px;
     left: 4px;
@@ -378,20 +377,20 @@ footer {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.35), 0 10px 10px -5px rgba(0, 0, 0, 0.20);
 }
 
-#button-1 .checkbox:checked+.knobs:before, #button-2 .checkbox:checked+.knobs:before {
+.toggle .checkbox:checked+.knobs:before{
     content: '';
     left: 32px;
     background-color: #fff;
 }
 
-#button-1 .checkbox:checked~.layer, #button-2 .checkbox:checked~.layer {
+.toggle .checkbox:checked~.layer{
     background-color: #17c2bd;
 }
 
-#button-1 .knobs,
-#button-2 .knobs,
-#button-1 .knobs:before, #button-2 .knobs:before
-#button-1 .layer, #button-2 .layer {
+.toggle .knobs,
+
+.toggle .knobs:before
+.toggle .layer {
     transition: 0.3s ease all;
 }
 
