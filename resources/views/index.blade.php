@@ -266,11 +266,13 @@ function lineChart() {
       
       let currentDate = new Date();
       let lastUpdated = new Date(date);
-      let ms = lastUpdated.getTime() - currentDate.getTime();
+      let ms = currentDate.getTime() - lastUpdated.getTime();
       let seconds = ms / 1000;
+
+  
  
 
-      if(seconds > checkSeconds) {
+      if( checkSeconds < seconds) {
         return true;
       } else {
         return false;
@@ -293,13 +295,20 @@ function lineChart() {
            $("#outside-temp-reading").text(data.outsideTemperature[0].temperature);
            $("#last-updated-outside-temp").text(formatDate(outsideTemperatureLastUpdated));
 
-           if(passedTimeGreaterThan(insideTemperatureLastUpdated, 20000)) 
+           if(passedTimeGreaterThan(insideTemperatureLastUpdated, 2000)) 
            {
             $(".inside-power-status").text("Off");
+           } else 
+           {
+            $(".inside-power-status").text("[Active]");
            }
-           if(passedTimeGreaterThan(outsideTemperatureLastUpdated, 20000)) 
+           if(passedTimeGreaterThan(outsideTemperatureLastUpdated, 2000)) 
            {
             $(".outside-power-status").text("Off");
+            
+           } else {
+           
+            $(".outside-power-status").text("[Active]");
            }
         },
        
