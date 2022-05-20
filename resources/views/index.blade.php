@@ -205,6 +205,11 @@ function lineChart() {
             <div class="icon-container power">
             <span class="icon fa-solid fa-power-off"></span>
             <h3>Outside Temperature <span class="outside-power-status">Off</span></h3>
+            <div class="button r center" id="button-1">
+            <input type="checkbox" class="checkbox">
+            <div class="knobs"></div>
+            <div class="layer"></div>
+          </div>
         </div>
           <h1 id="inside-temp-reading" class="center-text"></h1>
           <small>Last updated: <strong><span id="last-updated-inside-temp" class=""></span></strong></small>
@@ -216,7 +221,12 @@ function lineChart() {
             <div class="icon-container power">
             <span class="icon fa-solid fa-power-off"></span>
             <h3>Inside Temperature <span class="inside-power-status">Off</span></h3>
-        </div>
+            <div class="button r center" id="button-2">
+            <input type="checkbox" class="checkbox">
+            <div class="knobs"></div>
+            <div class="layer"></div>
+          </div>
+            </div>
             <h1 id="outside-temp-reading" class="center-text">32</h1>
               <small>Last updated: <strong><span id="last-updated-outside-temp" class=""></span></strong></small>
             <div class="circle center-text">
@@ -232,9 +242,7 @@ function lineChart() {
 
     </div>
   
-    <div class="content">
-
-    </div>
+    
 
     <section class="container flex">
      
