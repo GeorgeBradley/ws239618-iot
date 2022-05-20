@@ -231,15 +231,18 @@ function lineChart() {
        
 
     </div>
-    <section class="group container">
-     
-     <div id="linechart"></div>
-   </section>
+  
     <div class="content">
 
     </div>
 
-
+    <section class="container flex">
+     
+      <div class="item">
+        <div id="linechart"></div>
+        </div>
+  
+   </section>
 <footer>
     <p>WS239618 &copy; 2022</p>
 </footer>    
