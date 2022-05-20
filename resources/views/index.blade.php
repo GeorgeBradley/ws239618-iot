@@ -199,12 +199,12 @@ function lineChart() {
 
     
     <div class="group container color-white">
-        <aside class="left-sidebar center-text">
+        
          
           <div class="bg-color-red">
             <div class="icon-container power">
             <span class="icon fa-solid fa-power-off"></span>
-            <h3>Outside Temperature <span class="power-status">Off</span></h3>
+            <h3>Outside Temperature <span class="outside-power-status">Off</span></h3>
         </div>
           <h1 id="inside-temp-reading" class="center-text"></h1>
           <small>Last updated: <strong><span id="last-updated-inside-temp" class=""></span></strong></small>
@@ -215,7 +215,7 @@ function lineChart() {
           <div class="bg-color-blue">
             <div class="icon-container power">
             <span class="icon fa-solid fa-power-off"></span>
-            <h3>Inside Temperature <span class="power-status">Off</span></h3>
+            <h3>Inside Temperature <span class="inside-power-status">Off</span></h3>
         </div>
             <h1 id="outside-temp-reading" class="center-text">32</h1>
               <small>Last updated: <strong><span id="last-updated-outside-temp" class=""></span></strong></small>
@@ -225,16 +225,16 @@ function lineChart() {
             </div>
       </div>
           
-        </aside>
+       
         
     
-        <section class="centre">
-     
-          <div id="linechart"></div>
-        </section>
+       
 
     </div>
-    
+    <section class="group container">
+     
+     <div id="linechart"></div>
+   </section>
     <div class="content">
 
     </div>
@@ -258,6 +258,24 @@ function lineChart() {
 
   <script>
     
+    function formatDate(date){
+      return formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() 
+      
+    }
+    function passedTimeGreaterThan(date, checkSeconds){
+      
+      let currentDate = new Date();
+      let lastUpdated = new Date(date);
+      let ms = lastUpdated.getTime() - currentDate.getTime();
+      let seconds = ms / 1000;
+ 
+
+      if(seconds > checkSeconds) {
+        return true;
+      } else {
+        return false;
+      }
+    }
     function getMessage() {
       setInterval(function run(){
      $.ajax({
@@ -265,10 +283,24 @@ function lineChart() {
         url:'/msg',
         data:'_token = <?php echo csrf_token() ?>',
         success:function(data) {
+       
+          let insideTemperatureLastUpdated = new Date(data.insideTemperature[0].last_updated);
+          let outsideTemperatureLastUpdated = new Date(data.outsideTemperature[0].last_updated);
+
            $("#inside-temp-reading").text(data.insideTemperature[0].temperature);
-           $("#last-updated-inside-temp").text(data.insideTemperature[0].last_updated);
+           $("#last-updated-inside-temp").text(formatDate(insideTemperatureLastUpdated));
+            
            $("#outside-temp-reading").text(data.outsideTemperature[0].temperature);
-           $("#last-updated-outside-temp").text(data.outsideTemperature[0].last_updated);
+           $("#last-updated-outside-temp").text(formatDate(outsideTemperatureLastUpdated));
+
+           if(passedTimeGreaterThan(insideTemperatureLastUpdated, 20000)) 
+           {
+            $(".inside-power-status").text("Off");
+           }
+           if(passedTimeGreaterThan(outsideTemperatureLastUpdated, 20000)) 
+           {
+            $(".outside-power-status").text("Off");
+           }
         },
        
      });
