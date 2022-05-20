@@ -384,7 +384,7 @@ footer {
 }
 
 .toggle .checkbox:checked~.layer{
-    background-color: #17c2bd;
+    background-color: #52ef57;
 }
 
 .toggle .knobs,
@@ -439,3 +439,9 @@ footer {
     transition: 0.3s ease all;
     z-index: 1;
 }
+
+.status {
+    width:200px;
+    padding:1rem;
+}
+

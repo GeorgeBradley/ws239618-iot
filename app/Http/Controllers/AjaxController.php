@@ -75,4 +75,21 @@ return response()->json(array('insideTemperature'=> $insideTemperature, 'outside
       return $dailyAverageTemperature;
 
    }
+
+   public function updateInsideTempStatus($status){
+      DB::update(`UPDATE status SET s_insideTemp = '{$status}' WHERE status.status_id = 1;`);
+      $outsideTemperatureSQL = "
+      SELECT
+      temperature_log.temperature,
+      temperature_log.TIMESTAMP AS last_updated
+      FROM temperature_log
+      INNER JOIN sensors ON sensors.sensor_id = temperature_log.sensor_id
+      WHERE sensors.isInternal = 1
+   
+      ORDER BY temperature_log.TIMESTAMP DESC
+      LIMIT 1
+      ";
+       $outsideTemperature = DB::select(DB::raw($outsideTemperatureSQL));
+       return response()->json(array('outsideTemperature' => $outsideTemperature), 200);
+   }
 }

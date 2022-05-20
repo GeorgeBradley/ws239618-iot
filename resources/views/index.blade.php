@@ -129,7 +129,7 @@ setInterval(function load() {
 
 var visitor = <?php echo $visitor; ?>;
 
-console.log(visitor);
+// console.log(visitor);
 
 google.charts.load('current', {'packages':['corechart']});
 
@@ -174,6 +174,8 @@ function lineChart() {
 
     <section class="status-group container">
    
+
+      <div class="status">
         <div class="icon-container heating">
             <span class="icon fa-solid fa-fire"></span>
             <h3>Heating <span class="heating-status">Off</span></h3>
@@ -187,9 +189,10 @@ function lineChart() {
               </form>
            
         </div>
-        
-        
-        <div class="icon-container window">
+        </div>
+       
+        <div class="status">
+          <div class="icon-container window">
             <span class="icon fa-solid fa-door-open"></span>
           
             <h3>Window <span class="window-status">Closed</span></h3>
@@ -202,9 +205,12 @@ function lineChart() {
               </form>
            
         </div>
-        <div class="icon-container vent">
+          </div>
+        
+        <div class="status">
+          <div class="icon-container fan">
             <span class="icon fa-solid fa-fan"></span>
-            <h3>Ventilation <span class="fan-status">Off</span></h3>
+            <h3>Fan <span class="fan-status">Off</span></h3>
 
             <form action="" method="POST">
               <div class="toggle-fan toggle button r center">
@@ -216,8 +222,10 @@ function lineChart() {
               </form>
             
         </div>
+          </div>
         
-        <div class="icon-container air-con">
+        <div class="status">
+          <div class="icon-container air-con">
             <span class="icon fa-solid fa-snowflake"></span>
             <h3>Air Conditioning <span class="air-con-status">Off</span></h3>
             <form action="" method="POST">
@@ -230,6 +238,8 @@ function lineChart() {
               </form>
            
         </div>
+          </div>
+        
         
     </section>
 
@@ -252,7 +262,7 @@ function lineChart() {
               </form>
             
         </div>
-          <h1 id="inside-temp-reading" class="center-text"><span class="temp">32</span>°C</h1>
+          <h1 id="inside-temp-reading" class="center-text"><span class="temp">0</span>°C</h1>
           <small>Last updated: <strong><span id="last-updated-inside-temp" class=""></span></strong></small>
             <div class="circle center-text">
                 <div id="chart-1" ></div>
@@ -273,7 +283,7 @@ function lineChart() {
           </div>
             </div>
             <div class="div">
-              <h1 id="outside-temp-reading" class="center-text"><span class="temp">32</span>°C</h1>
+              <h1 id="outside-temp-reading" class="center-text"><span class="temp">0</span>°C</h1>
    
               </div>
             
@@ -317,7 +327,30 @@ function lineChart() {
   crossorigin="anonymous"></script>
 
   <script>
+    $('.toggle-inside-temp.toggle .checkbox').click(function() {
+    // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
+
     
+       if(this.checked){
+            $.ajax({
+                type: "GET",
+                url: '/msgthree',
+                data:'status=1',
+                success: function(data) {
+                    alert("ya did it bruh");
+                    
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    alert('it completed');
+                }
+            });
+
+            }
+      });
+
     function formatDate(date){
       return formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() 
       
@@ -338,8 +371,9 @@ function lineChart() {
         return false;
       }
     }
-    function getMessage() {
-      setInterval(function run(){
+ 
+     let myInterval = setInterval(function run(){
+        
      $.ajax({
         type:'GET',
         url:'/msg',
@@ -380,12 +414,11 @@ function lineChart() {
      });
 
      }, 2000);
-  }
   
-  function getMessage2() {
+  
 
 
-    setInterval(function run(){
+    let myIntervalTwo = setInterval(function run(){
 
       $.ajax({
         type:'GET',
@@ -398,41 +431,44 @@ function lineChart() {
           let airConStatus = data.statuses[0].s_ac;
           let ventStatus = data.statuses[0].s_vent;
           let powerStatus = data.statuses[0].s_power;
-          if (powerStatus != 1) {
-            $(".power").removeClass('power-active');
-            $(".power-status").text("Off");
-          } else {
-            $(".power").addClass('power-active');
-            $(".power-status").text("On");
-          }
+         
           if (windowStatus != 1) {
             $(".window").removeClass('window-opened-active');
             $(".window-status").text("Closed");
+            $(".toggle-window .checkbox").prop('checked', false);
+            
           } else {
             $(".window").addClass('window-opened-active');
             $(".window-status").text("Opened");
+            $(".toggle-window .checkbox").prop('checked', true);
           }
 
           if (heatingStatus != 1) {
             $(".heating").removeClass('heating-active');
             $(".heating-status").text("Off");
+            $(".toggle-heating .checkbox").prop('checked', false);
           } else {
             $(".heating").addClass('heating-active');
             $(".heating-status").text("On");
+            $(".toggle-heating .checkbox").prop('checked', true);
           }
           if (airConStatus != 1) {
             $(".air-con").removeClass('air-con-active');
             $(".air-con-status").text("Off");
+            $(".toggle-ac .checkbox").prop('checked', false);
           } else {
             $(".air-con").addClass('air-con-active');
             $(".air-con-status").text("On");
+            $(".toggle-ac .checkbox").prop('checked', true);
           }
           if (ventStatus != 1) {
             $(".vent").removeClass('vent-active');
             $(".vent-status").text("Off");
+            $(".toggle-vent .checkbox").prop('checked', false);
           } else {
-            $(".vent").addClass('vent-active');
-            $(".vent-status").text("On");
+            $(".fan").addClass('vent-active');
+            $(".fan-status").text("On");
+            $(".toggle-fan .checkbox").prop('checked', true);
           }
         },
        
@@ -441,13 +477,8 @@ function lineChart() {
     }, 2000);
   
    
-  }
-        $(document).ready( function() {
-
-          getMessage();
-          getMessage2();
-      
-      });
+  
+   
     </script>
 </body>
 </html>
