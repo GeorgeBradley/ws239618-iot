@@ -177,11 +177,15 @@ function lineChart() {
         <div class="icon-container heating">
             <span class="icon fa-solid fa-fire"></span>
             <h3>Heating <span class="heating-status">Off</span></h3>
-            <div class="toggle-heating toggle button r center">
-            <input type="checkbox" class="checkbox">
-            <div class="knobs"></div>
-            <div class="layer"></div>
-          </div>
+
+            <form action="" method="POST">
+              <div class="toggle-heating toggle button r center">
+              <input type="checkbox" class="checkbox">
+              <div class="knobs"></div>
+              <div class="layer"></div>
+              </div>
+              </form>
+           
         </div>
         
         
@@ -189,30 +193,42 @@ function lineChart() {
             <span class="icon fa-solid fa-door-open"></span>
           
             <h3>Window <span class="window-status">Closed</span></h3>
-            <div class="toggle-window toggle button r center">
+            <form action="" method="POST">
+              <div class="toggle-window toggle button r center">
             <input type="checkbox" class="checkbox">
             <div class="knobs"></div>
             <div class="layer"></div>
           </div>
+              </form>
+           
         </div>
         <div class="icon-container vent">
             <span class="icon fa-solid fa-fan"></span>
             <h3>Ventilation <span class="fan-status">Off</span></h3>
-            <div class="toggle-fan toggle button r center">
-            <input type="checkbox" class="checkbox">
-            <div class="knobs"></div>
-            <div class="layer"></div>
+
+            <form action="" method="POST">
+              <div class="toggle-fan toggle button r center">
+              <input type="checkbox" class="checkbox">
+              <div class="knobs"></div>
+              <div class="layer"></div>
           </div>
+              
+              </form>
+            
         </div>
         
         <div class="icon-container air-con">
             <span class="icon fa-solid fa-snowflake"></span>
             <h3>Air Conditioning <span class="air-con-status">Off</span></h3>
-            <div class="toggle-ac toggle button r center">
+            <form action="" method="POST">
+              <div class="toggle-ac toggle button r center">
             <input type="checkbox" class="checkbox">
             <div class="knobs"></div>
             <div class="layer"></div>
           </div>
+              
+              </form>
+           
         </div>
         
     </section>
@@ -225,13 +241,18 @@ function lineChart() {
             <div class="icon-container power">
             <span class="icon fa-solid fa-power-off"></span>
             <h3>Outside Temperature <span class="outside-power-status">Off</span></h3>
-            <div class="toggle-outside-temp toggle button r center">
+
+            <form action="" method="POST">
+              <div class="toggle-outside-temp toggle button r center">
             <input type="checkbox" class="checkbox">
             <div class="knobs"></div>
             <div class="layer"></div>
           </div>
+              
+              </form>
+            
         </div>
-          <h1 id="inside-temp-reading" class="center-text"></h1>
+          <h1 id="inside-temp-reading" class="center-text"><span class="temp">32</span>°C</h1>
           <small>Last updated: <strong><span id="last-updated-inside-temp" class=""></span></strong></small>
             <div class="circle center-text">
                 <div id="chart-1" ></div>
@@ -241,13 +262,21 @@ function lineChart() {
             <div class="icon-container power">
             <span class="icon fa-solid fa-power-off"></span>
             <h3>Inside Temperature <span class="inside-power-status">Off</span></h3>
-            <div class="toggle-inside-temp toggle button r center">
+            <form action="" method="POST">
+              <div class="toggle-inside-temp toggle button r center">
             <input type="checkbox" class="checkbox">
             <div class="knobs"></div>
             <div class="layer"></div>
+              
+              </form>
+            
           </div>
             </div>
-            <h1 id="outside-temp-reading" class="center-text">32</h1>
+            <div class="div">
+              <h1 id="outside-temp-reading" class="center-text"><span class="temp">32</span>°C</h1>
+   
+              </div>
+            
               <small>Last updated: <strong><span id="last-updated-outside-temp" class=""></span></strong></small>
             <div class="circle center-text">
               
@@ -320,26 +349,31 @@ function lineChart() {
           let insideTemperatureLastUpdated = new Date(data.insideTemperature[0].last_updated);
           let outsideTemperatureLastUpdated = new Date(data.outsideTemperature[0].last_updated);
 
-           $("#inside-temp-reading").text(data.insideTemperature[0].temperature);
+           $("#inside-temp-reading .temp").text(data.insideTemperature[0].temperature);
            $("#last-updated-inside-temp").text(formatDate(insideTemperatureLastUpdated));
             
-           $("#outside-temp-reading").text(data.outsideTemperature[0].temperature);
+           $("#outside-temp-reading .temp").text(data.outsideTemperature[0].temperature);
            $("#last-updated-outside-temp").text(formatDate(outsideTemperatureLastUpdated));
 
            if(passedTimeGreaterThan(insideTemperatureLastUpdated, 2000)) 
            {
             $(".inside-power-status").text("Off");
+        
            } else 
            {
             $(".inside-power-status").text("[Active]");
+            $(".toggle-inside-temp .checkbox").prop('checked', true)
            }
            if(passedTimeGreaterThan(outsideTemperatureLastUpdated, 2000)) 
            {
             $(".outside-power-status").text("Off");
+            $(".toggle-outside-temp .checkbox").prop('checked', false);
+           
             
            } else {
            
             $(".outside-power-status").text("[Active]");
+            $(".toggle-outside-temp .checkbox").prop('checked', true);
            }
         },
        
