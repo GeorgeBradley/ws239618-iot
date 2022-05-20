@@ -173,10 +173,7 @@ function lineChart() {
 </header>
 
     <section class="status-group container">
-      <div class="icon-container power">
-            <span class="icon fa-solid fa-power-off"></span>
-            <h3>Power <span class="power-status">Off</span></h3>
-        </div>
+   
         <div class="icon-container heating">
             <span class="icon fa-solid fa-fire"></span>
             <h3>Heating <span class="heating-status">Off</span></h3>
@@ -203,18 +200,30 @@ function lineChart() {
     
     <div class="group container color-white">
         <aside class="left-sidebar center-text">
+         
+          <div class="bg-color-red">
+            <div class="icon-container power">
+            <span class="icon fa-solid fa-power-off"></span>
+            <h3>Outside Temperature <span class="power-status">Off</span></h3>
+        </div>
           <h1 id="inside-temp-reading" class="center-text"></h1>
           <small>Last updated: <strong><span id="last-updated-inside-temp" class=""></span></strong></small>
             <div class="circle center-text">
                 <div id="chart-1" ></div>
             </div>
-
-            <div class="circle center-text">
-              <h1 id="outside-temp-reading" class="center-text">32</h1>
-              <small>Last updated: <strong><span id="last-updated-outside-temp" class=""></span></strong></small>
-              <div id="chart-2"></div>
-
           </div>
+          <div class="bg-color-blue">
+            <div class="icon-container power">
+            <span class="icon fa-solid fa-power-off"></span>
+            <h3>Inside Temperature <span class="power-status">Off</span></h3>
+        </div>
+            <h1 id="outside-temp-reading" class="center-text">32</h1>
+              <small>Last updated: <strong><span id="last-updated-outside-temp" class=""></span></strong></small>
+            <div class="circle center-text">
+              
+              <div id="chart-2"></div>
+            </div>
+      </div>
           
         </aside>
         
@@ -261,8 +270,10 @@ function lineChart() {
            $("#outside-temp-reading").text(data.outsideTemperature[0].temperature);
            $("#last-updated-outside-temp").text(data.outsideTemperature[0].last_updated);
         },
+       
      });
-    }, 2000);
+
+     }, 2000);
   }
   
   function getMessage2() {
