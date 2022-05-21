@@ -426,37 +426,26 @@ function lineChart() {
       }
     }
  
-     let myInterval = setInterval(function run(){
-        
-     $.ajax({
+    let getOutsideTemp = setInterval(function run(){
+      $.ajax({
         type:'GET',
         url:'/msg',
         data:'_token = <?php echo csrf_token() ?>',
         success:function(data) {
-       
-          let insideTemperatureLastUpdated = new Date(data.insideTemperature[0].last_updated);
-          let insideTemperatureStatus = data.insideTemperature[0].s_insideTemp;
+          
 
 
           let outsideTemperatureLastUpdated = new Date(data.outsideTemperature[0].last_updated);
           let outsideTemperatureStatus = data.outsideTemperature[0].s_outsideTemp;
 
-        
-           $("#inside-temp-reading .temp").text(data.insideTemperature[0].temperature);
-           $("#last-updated-inside-temp").text(formatDate(insideTemperatureLastUpdated));
-            
+            if (outsideTemperatureStatus == 0) {
+              clearInterval(getOutsideTemp);
+            }
+
            $("#outside-temp-reading .temp").text(data.outsideTemperature[0].temperature);
            $("#last-updated-outside-temp").text(formatDate(outsideTemperatureLastUpdated));
 
-           if(passedTimeGreaterThan(insideTemperatureLastUpdated, 10000) && insideTemperatureStatus == 0) 
-           {
-            $(".inside-power-status").text("Off");
-            $(".toggle-inside-temp .checkbox").prop('checked', false);
-           } else 
-           {
-            $(".inside-power-status").text("[Active]");
-            $(".toggle-inside-temp .checkbox").prop('checked', true);
-           }
+        
            if(passedTimeGreaterThan(outsideTemperatureLastUpdated, 10000) && outsideTemperatureStatus == 0) 
            {
             $(".outside-power-status").text("Off");
@@ -468,6 +457,41 @@ function lineChart() {
             $(".outside-power-status").text("[Active]");
             $(".toggle-outside-temp .checkbox").prop('checked', true);
            }
+        },
+       
+     });
+    }, 2000);
+
+     let getInsideTemp = setInterval(function run(){
+        
+     $.ajax({
+        type:'GET',
+        url:'/msg',
+        data:'_token = <?php echo csrf_token() ?>',
+        success:function(data) {
+          
+          
+          let insideTemperatureLastUpdated = new Date(data.insideTemperature[0].last_updated);
+          let insideTemperatureStatus = data.insideTemperature[0].s_insideTemp;
+
+
+
+            if (insideTemperatureStatus == 0) {
+              clearInterval(getInsideTemp);
+            }
+           $("#inside-temp-reading .temp").text(data.insideTemperature[0].temperature);
+           $("#last-updated-inside-temp").text(formatDate(insideTemperatureLastUpdated));
+
+           if(passedTimeGreaterThan(insideTemperatureLastUpdated, 2000) && insideTemperatureStatus == 0) 
+           {
+            $(".inside-power-status").text("Off");
+            $(".toggle-inside-temp .checkbox").prop('checked', false);
+           } else 
+           {
+            $(".inside-power-status").text("[Active]");
+            $(".toggle-inside-temp .checkbox").prop('checked', true);
+           }
+    
         },
        
      });
@@ -533,7 +557,7 @@ function lineChart() {
        
      });
   
-    }, 10000);
+    }, 2000);
   
    
   
