@@ -36,4 +36,9 @@ Route::get('/avgTemp', [AjaxController::class, 'dailyAverageTemperature']);
 Route::get('/msgtwo', [AjaxController::class, 'getStatuses'])->name('messageTwo');
 
 
-Route::GET('/msgthree/{status}', [AjaxController::class, 'updateInsideTempStatus'])->name('messageThree');
+Route::get('/turnOnInsideTemp', [AjaxController::class, 'turnOnInsideTempStatus']);
+Route::get('/turnOffInsideTemp', [AjaxController::class, 'turnOffInsideTempStatus']);
+
+
+Route::get('/turnOnOutsideTemp', [AjaxController::class, 'turnOnOutsideTempStatus']);
+Route::get('/turnOffOutsideTemp', [AjaxController::class, 'turnOffOutsideTempStatus']);

@@ -254,7 +254,7 @@ function lineChart() {
 
             <form action="" method="POST">
               <div class="toggle-outside-temp toggle button r center">
-            <input type="checkbox" class="checkbox">
+            <input type="checkbox" class="checkbox" id ="outside-toggle">
             <div class="knobs"></div>
             <div class="layer"></div>
           </div>
@@ -274,7 +274,7 @@ function lineChart() {
             <h3>Inside Temperature <span class="inside-power-status">Off</span></h3>
             <form action="" method="POST">
               <div class="toggle-inside-temp toggle button r center">
-            <input type="checkbox" class="checkbox">
+            <input type="checkbox" class="checkbox" id="inside-toggle">
             <div class="knobs"></div>
             <div class="layer"></div>
               
@@ -327,24 +327,78 @@ function lineChart() {
   crossorigin="anonymous"></script>
 
   <script>
-    $('.toggle-inside-temp.toggle .checkbox').click(function() {
+    $('#outside-toggle').click(function() {
     // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
-
-    
        if(this.checked){
             $.ajax({
                 type: "GET",
-                url: '/msgthree',
-                data:'status=1',
+                url: '/turnOnOutsideTemp',
+                data:'_token = <?php echo csrf_token() ?>',
                 success: function(data) {
-                    alert("ya did it bruh");
+                   
                     
                 },
                  error: function() {
                     alert('it broke');
                 },
                 complete: function() {
-                    alert('it completed');
+                    // alert('it completed');
+                }
+            });
+
+            } else {
+              $.ajax({
+                type: "GET",
+                url: '/turnOffOutsideTemp',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                   
+                    
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            }
+      });
+    
+    $('#inside-toggle').click(function() {
+    // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
+       if(this.checked){
+            $.ajax({
+                type: "GET",
+                url: '/turnOnInsideTemp',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                   
+                    
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            } else {
+              $.ajax({
+                type: "GET",
+                url: '/turnOffInsideTemp',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                   
+                    
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
                 }
             });
 
@@ -381,24 +435,29 @@ function lineChart() {
         success:function(data) {
        
           let insideTemperatureLastUpdated = new Date(data.insideTemperature[0].last_updated);
-          let outsideTemperatureLastUpdated = new Date(data.outsideTemperature[0].last_updated);
+          let insideTemperatureStatus = data.insideTemperature[0].s_insideTemp;
 
+
+          let outsideTemperatureLastUpdated = new Date(data.outsideTemperature[0].last_updated);
+          let outsideTemperatureStatus = data.outsideTemperature[0].s_outsideTemp;
+
+        
            $("#inside-temp-reading .temp").text(data.insideTemperature[0].temperature);
            $("#last-updated-inside-temp").text(formatDate(insideTemperatureLastUpdated));
             
            $("#outside-temp-reading .temp").text(data.outsideTemperature[0].temperature);
            $("#last-updated-outside-temp").text(formatDate(outsideTemperatureLastUpdated));
 
-           if(passedTimeGreaterThan(insideTemperatureLastUpdated, 2000)) 
+           if(passedTimeGreaterThan(insideTemperatureLastUpdated, 10000) && insideTemperatureStatus == 0) 
            {
             $(".inside-power-status").text("Off");
-        
+            $(".toggle-inside-temp .checkbox").prop('checked', false);
            } else 
            {
             $(".inside-power-status").text("[Active]");
-            $(".toggle-inside-temp .checkbox").prop('checked', true)
+            $(".toggle-inside-temp .checkbox").prop('checked', true);
            }
-           if(passedTimeGreaterThan(outsideTemperatureLastUpdated, 2000)) 
+           if(passedTimeGreaterThan(outsideTemperatureLastUpdated, 10000) && outsideTemperatureStatus == 0) 
            {
             $(".outside-power-status").text("Off");
             $(".toggle-outside-temp .checkbox").prop('checked', false);
@@ -474,7 +533,7 @@ function lineChart() {
        
      });
   
-    }, 2000);
+    }, 10000);
   
    
   

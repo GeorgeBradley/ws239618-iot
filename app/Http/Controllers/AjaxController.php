@@ -20,26 +20,38 @@ class AjaxController extends Controller {
 
    public function insideOutsideTemperature() {
    $insideTemperatureSQL = "
-	 SELECT
-    temperature_log.temperature,
-    temperature_log.TIMESTAMP AS last_updated
-    FROM temperature_log
-    INNER JOIN sensors ON sensors.sensor_id = temperature_log.sensor_id
-    WHERE sensors.isInternal = 0
-
-    ORDER BY temperature_log.TIMESTAMP DESC
-    LIMIT 1
-   ";
-   $outsideTemperatureSQL = "
    SELECT
    temperature_log.temperature,
-   temperature_log.TIMESTAMP AS last_updated
+   temperature_log.TIMESTAMP AS last_updated,
+   (
+       SELECT
+       status.s_insideTemp
+       FROM status
+       WHERE status.status_id = 1
+   ) AS s_insideTemp
    FROM temperature_log
    INNER JOIN sensors ON sensors.sensor_id = temperature_log.sensor_id
    WHERE sensors.isInternal = 1
 
    ORDER BY temperature_log.TIMESTAMP DESC
    LIMIT 1
+   ";
+   $outsideTemperatureSQL = "
+   SELECT
+   temperature_log.temperature,
+   temperature_log.TIMESTAMP AS last_updated,
+   (
+       SELECT
+       status.s_outsideTemp
+       FROM status
+       WHERE status.status_id = 1
+   ) AS s_outsideTemp
+   FROM temperature_log
+   INNER JOIN sensors ON sensors.sensor_id = temperature_log.sensor_id
+   WHERE sensors.isInternal = 0
+
+   ORDER BY temperature_log.TIMESTAMP DESC
+   LIMIT 1;
    ";
 
 
@@ -76,20 +88,17 @@ return response()->json(array('insideTemperature'=> $insideTemperature, 'outside
 
    }
 
-   public function updateInsideTempStatus($status){
-      DB::update(`UPDATE status SET s_insideTemp = '{$status}' WHERE status.status_id = 1;`);
-      $outsideTemperatureSQL = "
-      SELECT
-      temperature_log.temperature,
-      temperature_log.TIMESTAMP AS last_updated
-      FROM temperature_log
-      INNER JOIN sensors ON sensors.sensor_id = temperature_log.sensor_id
-      WHERE sensors.isInternal = 1
-   
-      ORDER BY temperature_log.TIMESTAMP DESC
-      LIMIT 1
-      ";
-       $outsideTemperature = DB::select(DB::raw($outsideTemperatureSQL));
-       return response()->json(array('outsideTemperature' => $outsideTemperature), 200);
+   public function turnOnInsideTempStatus(){
+      DB::update("UPDATE `status` SET `s_insideTemp` = '1' WHERE `status`.`status_id` = 1;");
+   }
+   public function turnOffInsideTempStatus(){
+      DB::update("UPDATE `status` SET `s_insideTemp` = '0' WHERE `status`.`status_id` = 1;");
+   }
+
+   public function turnOnOutsideTempStatus(){
+      DB::update("UPDATE `status` SET `s_outsideTemp` = '1' WHERE `status`.`status_id` = 1;");
+   }
+   public function turnOffOutsideTempStatus(){
+      DB::update("UPDATE `status` SET `s_outsideTemp` = '0' WHERE `status`.`status_id` = 1;");
    }
 }
