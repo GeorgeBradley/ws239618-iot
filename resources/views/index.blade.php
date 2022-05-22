@@ -297,7 +297,7 @@ function lineChart() {
           <div class="bg-color-red">
             <div class="icon-container power">
 
-            <h3>Outside Temperature <span class="outside-power-status">Off</span></h3>
+            <h3>Inside Temperature <span class="outside-power-status">Off</span></h3>
 
               <div class="toggle-outside-temp toggle button r center">
             <input type="checkbox" class="checkbox" id ="outside-toggle">
@@ -315,7 +315,7 @@ function lineChart() {
           </div>
           <div class="bg-color-blue">
            
-            <h3>Inside Temperature <span class="inside-power-status">Off</span></h3>
+            <h3>Outside Temperature <span class="inside-power-status">Off</span></h3>
      
 
              
