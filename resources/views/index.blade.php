@@ -179,7 +179,7 @@ function lineChart() {
 
             <form action="" method="POST">
               <div class="toggle-heating toggle button r center">
-              <input type="checkbox" class="checkbox">
+              <input type="checkbox" class="checkbox" id="heating-toggle">
               <div class="knobs"></div>
               <div class="layer"></div>
               </div>
@@ -195,7 +195,7 @@ function lineChart() {
             <h3>Window <span class="window-status">Closed</span></h3>
             <form action="" method="POST">
               <div class="toggle-window toggle button r center">
-            <input type="checkbox" class="checkbox">
+            <input type="checkbox" class="checkbox" id="window-toggle">
             <div class="knobs"></div>
             <div class="layer"></div>
           </div>
@@ -211,7 +211,7 @@ function lineChart() {
 
             <form action="" method="POST">
               <div class="toggle-fan toggle button r center">
-              <input type="checkbox" class="checkbox">
+              <input type="checkbox" class="checkbox" id="fan-toggle">
               <div class="knobs"></div>
               <div class="layer"></div>
           </div>
@@ -227,7 +227,7 @@ function lineChart() {
             <h3>Air Conditioning <span class="air-con-status">Off</span></h3>
             <form action="" method="POST">
               <div class="toggle-ac toggle button r center">
-            <input type="checkbox" class="checkbox">
+            <input type="checkbox" class="checkbox" id="ac-toggle">
             <div class="knobs"></div>
             <div class="layer"></div>
           </div>
@@ -500,6 +500,162 @@ function lineChart() {
 
             }
       });
+      $('#ac-toggle').click(function() {
+    // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
+       if(this.checked){
+            $.ajax({
+                type: "GET",
+                url: '/acOn',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                  
+                  
+                    
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            } else {
+              $.ajax({
+                type: "GET",
+                url: '/acOff',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                   
+                  
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            }
+      });
+      $('#fan-toggle').click(function() {
+    // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
+       if(this.checked){
+            $.ajax({
+                type: "GET",
+                url: '/fanOn',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                  
+                  
+                    
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            } else {
+              $.ajax({
+                type: "GET",
+                url: '/fanOff',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                   
+                  
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            }
+      });
+      $('#window-toggle').click(function() {
+    // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
+       if(this.checked){
+            $.ajax({
+                type: "GET",
+                url: '/openWindow',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                  
+                  
+                    
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            } else {
+              $.ajax({
+                type: "GET",
+                url: '/closeWindow',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                   
+                  
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            }
+      });
+      $('#heating-toggle').click(function() {
+    // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
+       if(this.checked){
+            $.ajax({
+                type: "GET",
+                url: '/heatingOn',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                  
+                  
+                    
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            } else {
+              $.ajax({
+                type: "GET",
+                url: '/heatingOff',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                   
+                  
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            }
+      });
     let myIntervalTwo = setInterval(function run(){
 
       $.ajax({
@@ -511,7 +667,7 @@ function lineChart() {
           let windowStatus = data.statuses[0].s_window;
           let heatingStatus = data.statuses[0].s_heating;
           let airConStatus = data.statuses[0].s_ac;
-          let ventStatus = data.statuses[0].s_vent;
+          let fanStatus = data.statuses[0].s_fan;
           let powerStatus = data.statuses[0].s_power;
          
           if (windowStatus != 1) {
@@ -543,12 +699,12 @@ function lineChart() {
             $(".air-con-status").text("On");
             $(".toggle-ac .checkbox").prop('checked', true);
           }
-          if (ventStatus != 1) {
-            $(".vent").removeClass('vent-active');
-            $(".vent-status").text("Off");
-            $(".toggle-vent .checkbox").prop('checked', false);
+          if (fanStatus != 1) {
+            $(".fan").removeClass('fan-active');
+            $(".fan-status").text("Off");
+            $(".toggle-fan .checkbox").prop('checked', false);
           } else {
-            $(".fan").addClass('vent-active');
+            $(".fan").addClass('fan-active');
             $(".fan-status").text("On");
             $(".toggle-fan .checkbox").prop('checked', true);
           }

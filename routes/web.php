@@ -42,3 +42,16 @@ Route::get('/turnOffInsideTemp', [AjaxController::class, 'turnOffInsideTempStatu
 
 Route::get('/turnOnOutsideTemp', [AjaxController::class, 'turnOnOutsideTempStatus']);
 Route::get('/turnOffOutsideTemp', [AjaxController::class, 'turnOffOutsideTempStatus']);
+
+
+Route::get('/openWindow', [AjaxController::class, 'openWindow']);
+Route::get('/closeWindow', [AjaxController::class, 'closeWindow']);
+
+Route::get('/acOn', [AjaxController::class, 'acOn']);
+Route::get('/acOff', [AjaxController::class, 'acOff']);
+
+Route::get('/fanOn', [AjaxController::class, 'fanOn']);
+Route::get('/fanOff', [AjaxController::class, 'fanOff']);
+
+Route::get('/heatingOn', [AjaxController::class, 'heatingOn']);
+Route::get('/heatingOff', [AjaxController::class, 'heatingOff']);

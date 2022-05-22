@@ -11,7 +11,7 @@ class AjaxController extends Controller {
 
    public function getStatuses(){
 
-      $query = "SELECT status.s_window, status.s_heating, status.s_ac, status.s_vent, status.s_power FROM status WHERE status.status_id = 1";
+      $query = "SELECT status.s_window, status.s_heating, status.s_ac, status.s_fan, status.s_power FROM status WHERE status.status_id = 1";
       $statuses = DB::SELECT(DB::raw($query));
   
       return response()->json(array('statuses' => $statuses), 200);
@@ -100,5 +100,32 @@ return response()->json(array('insideTemperature'=> $insideTemperature, 'outside
    }
    public function turnOffOutsideTempStatus(){
       DB::update("UPDATE `status` SET `s_outsideTemp` = '0' WHERE `status`.`status_id` = 1;");
+   }
+
+   public function acOn(){
+      DB::update("UPDATE `status` SET `s_ac` = '1' WHERE `status`.`status_id` = 1;");
+   }
+   public function acOff(){
+      DB::update("UPDATE `status` SET `s_ac` = '0' WHERE `status`.`status_id` = 1;");
+   }
+
+
+   public function openWindow(){
+      DB::update("UPDATE `status` SET `s_window` = '1' WHERE `status`.`status_id` = 1;");
+   }
+   public function closeWindow(){
+      DB::update("UPDATE `status` SET `s_window` = '0' WHERE `status`.`status_id` = 1;");
+   }
+   public function heatingOn(){
+      DB::update("UPDATE `status` SET `s_heating` = '1' WHERE `status`.`status_id` = 1;");
+   }
+   public function heatingOff(){
+      DB::update("UPDATE `status` SET `s_heating` = '0' WHERE `status`.`status_id` = 1;");
+   }
+   public function fanOn(){
+      DB::update("UPDATE `status` SET `s_fan` = '1' WHERE `status`.`status_id` = 1;");
+   }
+   public function fanOff(){
+      DB::update("UPDATE `status` SET `s_fan` = '0' WHERE `status`.`status_id` = 1;");
    }
 }
