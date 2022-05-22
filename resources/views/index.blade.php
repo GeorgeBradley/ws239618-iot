@@ -246,18 +246,16 @@ function lineChart() {
          
           <div class="bg-color-red">
             <div class="icon-container power">
-            <span class="icon fa-solid fa-power-off"></span>
+
             <h3>Outside Temperature <span class="outside-power-status">Off</span></h3>
 
-            <form action="" method="POST">
               <div class="toggle-outside-temp toggle button r center">
             <input type="checkbox" class="checkbox" id ="outside-toggle">
             <div class="knobs"></div>
             <div class="layer"></div>
           </div>
               
-              </form>
-            
+
         </div>
           <h1 id="inside-temp-reading" class="center-text"><span class="temp">0</span>°C</h1>
           <small>Last updated: <strong><span id="last-updated-inside-temp" class=""></span></strong></small>
@@ -266,19 +264,22 @@ function lineChart() {
             </div>
           </div>
           <div class="bg-color-blue">
-            <div class="icon-container power">
-            <span class="icon fa-solid fa-power-off"></span>
+           
             <h3>Inside Temperature <span class="inside-power-status">Off</span></h3>
-            <form action="" method="POST">
-              <div class="toggle-inside-temp toggle button r center">
+     
+
+             
+          
+            <div class="toggle-inside-temp toggle button r center">
             <input type="checkbox" class="checkbox" id="inside-toggle">
             <div class="knobs"></div>
             <div class="layer"></div>
               
-              </form>
-            
-          </div>
+         
+         
             </div>
+           
+            
             <div class="div">
               <h1 id="outside-temp-reading" class="center-text"><span class="temp">0</span>°C</h1>
    

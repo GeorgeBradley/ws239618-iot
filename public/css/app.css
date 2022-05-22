@@ -123,6 +123,9 @@ body {
 
 }
 
+.gap-1 {
+    gap:1rem;
+}
 .group {
 
     display: flex;
@@ -356,7 +359,9 @@ footer {
     display: flex;
     justify-content: center;
 }
-
+.fd-c {
+    flex-direction: column;
+}
 /* Toggle button */
 .toggle .knobs:before{
     content: '';
