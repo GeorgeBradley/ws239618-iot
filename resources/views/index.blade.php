@@ -168,6 +168,13 @@ function lineChart() {
   </form>
  
 </header>
+
+
+    
+      
+
+
+  
 <div class="container flex gap-1">
             <h2>Automatic Mode <span class="automatic-mode-status"></span></h2>
             <div class="toggle-manual-automatic toggle button r center">
@@ -176,11 +183,42 @@ function lineChart() {
             <div class="layer"></div>
           </div>
               
-            </div> 
+</div> 
+
+
+
+   
     <section class="status-group container">
    
+      <div class="color-key-reference">
+<h2>RGB Key</h2>
+        <div class="color-key-reference-body">
+          <div class="color-key">
+    <div class="color-box bg-orange"></div>
+      <h3>Heating</h3>
+    </div>
 
-      <div class="status">
+    <div class="color-key">
+    <div class="color-box bg-green"></div>
+      <h3>Window</h3>
+    </div>
+
+    <div class="color-key"> 
+    <div class="color-box bg-darkerBlue"></div>
+      <h3>Fan</h3>
+    </div>
+ 
+    <div class="color-key">
+      <div class="color-box bg-lightBlue"></div>
+      <h3>Air Con</h3>
+    </div>
+          
+          </div>
+  
+      </div>
+ 
+      <div class="statuses">
+        <div class="status">
         <div class="icon-container heating">
             <span class="icon fa-solid fa-fire"></span>
             <h3>Heating <span class="heating-status">Off</span></h3>
@@ -244,6 +282,8 @@ function lineChart() {
            
         </div>
           </div>
+        </div>
+      
         
         
     </section>
