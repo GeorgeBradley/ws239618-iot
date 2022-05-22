@@ -256,6 +256,10 @@ footer {
         min-width: 500px;
         ;
     }
+    .color-key-reference .color-key-reference-body {
+      
+        gap:3rem;
+    }
     
 }
 @media screen and (max-width: 1510px) {
@@ -270,7 +274,7 @@ footer {
     .color-key-reference .color-key-reference-body {
         flex-direction: row;
         justify-content: center;
-       gap:5rem;
+        gap:5rem;
     }
     .color-key {
         flex-direction: column;   
@@ -284,7 +288,10 @@ footer {
         min-width: 300px;
         ;
     }
-
+    .color-key-reference .color-key-reference-body {
+      
+        gap:1rem;
+    }
     
 }
 
