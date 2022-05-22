@@ -168,7 +168,15 @@ function lineChart() {
   </form>
  
 </header>
-
+<div class="container flex gap-1">
+            <h2>Automatic Mode <span class="automatic-mode-status"></span></h2>
+            <div class="toggle-manual-automatic toggle button r center">
+            <input type="checkbox" class="checkbox" id ="automatic-manual-toggle">
+            <div class="knobs"></div>
+            <div class="layer"></div>
+          </div>
+              
+            </div> 
     <section class="status-group container">
    
 
@@ -241,9 +249,11 @@ function lineChart() {
     </section>
 
     
+    
+    
     <div class="group container color-white">
         
-         
+        
           <div class="bg-color-red">
             <div class="icon-container power">
 
@@ -447,6 +457,42 @@ function lineChart() {
               $.ajax({
                 type: "GET",
                 url: '/turnOffInsideTemp',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                   
+                  
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            }
+      });
+      $('#automatic-manual-toggle').click(function() {
+    // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
+       if(this.checked){
+            $.ajax({
+                type: "GET",
+                url: '/automaticOn',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            } else {
+              $.ajax({
+                type: "GET",
+                url: '/automaticOff',
                 data:'_token = <?php echo csrf_token() ?>',
                 success: function(data) {
                    
@@ -670,7 +716,14 @@ function lineChart() {
           let airConStatus = data.statuses[0].s_ac;
           let fanStatus = data.statuses[0].s_fan;
           let powerStatus = data.statuses[0].s_power;
-         
+          let isAutomatic = data.statuses[0].is_automatic;
+          if (isAutomatic != 1) {
+            $("#automatic-manual-toggle").prop('checked', false);
+            $(".automatic-mode-status").text("Off");
+          } else {
+            $("#automatic-manual-toggle").prop('checked', true);
+            $(".automatic-mode-status").text("On");
+          }
           if (windowStatus != 1) {
             $(".window").removeClass('window-opened-active');
             $(".window-status").text("Closed");

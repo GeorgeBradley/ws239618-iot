@@ -11,7 +11,7 @@ class AjaxController extends Controller {
 
    public function getStatuses(){
 
-      $query = "SELECT status.s_window, status.s_heating, status.s_ac, status.s_fan, status.s_power FROM status WHERE status.status_id = 1";
+      $query = "SELECT * FROM status WHERE status.status_id = 1";
       $statuses = DB::SELECT(DB::raw($query));
   
       return response()->json(array('statuses' => $statuses), 200);
@@ -128,4 +128,12 @@ return response()->json(array('insideTemperature'=> $insideTemperature, 'outside
    public function fanOff(){
       DB::update("UPDATE `status` SET `s_fan` = '0' WHERE `status`.`status_id` = 1;");
    }
+
+   public function automaticOn(){
+      DB::update("UPDATE `status` SET `is_automatic` = '1' WHERE `status`.`status_id` = 1;");
+   }
+   public function automaticOff(){
+      DB::update("UPDATE `status` SET `is_automatic` = '0' WHERE `status`.`status_id` = 1;");
+   }
 }
+

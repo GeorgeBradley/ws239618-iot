@@ -55,3 +55,7 @@ Route::get('/fanOff', [AjaxController::class, 'fanOff']);
 
 Route::get('/heatingOn', [AjaxController::class, 'heatingOn']);
 Route::get('/heatingOff', [AjaxController::class, 'heatingOff']);
+
+
+Route::get('/automaticOn', [AjaxController::class, 'automaticOn']);
+Route::get('/automaticOff', [AjaxController::class, 'automaticOff']);
