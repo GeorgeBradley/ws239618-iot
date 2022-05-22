@@ -204,12 +204,12 @@ function lineChart() {
     </div>
 
     <div class="color-key"> 
-    <div class="color-box bg-darkerBlue"></div>
+    <div class="color-box bg-lightBlue"></div>
       <h3>Fan</h3>
     </div>
  
     <div class="color-key">
-      <div class="color-box bg-lightBlue"></div>
+      <div class="color-box bg-darkerBlue"></div>
       <h3>Air Con</h3>
     </div>
           
