@@ -112,8 +112,10 @@ body {
 }
 .statuses {
     display: flex;
-    gap: 5rem;
+    gap: 1rem;
     flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
     justify-content: space-evenly;
     justify-self: center;
 }
@@ -287,6 +289,9 @@ footer {
         min-height: 200px;
         min-width: 300px;
         ;
+    }
+    .icon {
+        font-size: 1.5rem;
     }
     .color-key-reference .color-key-reference-body {
       
@@ -480,8 +485,9 @@ footer {
 }
 
 .status {
-    width:200px;
-    padding:1rem;
+    width: fit-content;
+    padding: 1rem
+
 }
 
 h2 {
