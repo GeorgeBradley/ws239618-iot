@@ -103,9 +103,6 @@ var options = {
   minorTicks: 5
 };
 var chart = new google.visualization.Gauge(document.getElementById('chart-2'));
-
-
-
 chart.draw(data, options);
 
 setInterval(function load() {
@@ -327,83 +324,8 @@ function lineChart() {
   crossorigin="anonymous"></script>
 
   <script>
-    $('#outside-toggle').click(function() {
-    // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
-       if(this.checked){
-            $.ajax({
-                type: "GET",
-                url: '/turnOnOutsideTemp',
-                data:'_token = <?php echo csrf_token() ?>',
-                success: function(data) {
-                   
-                    
-                },
-                 error: function() {
-                    alert('it broke');
-                },
-                complete: function() {
-                    // alert('it completed');
-                }
-            });
-
-            } else {
-              $.ajax({
-                type: "GET",
-                url: '/turnOffOutsideTemp',
-                data:'_token = <?php echo csrf_token() ?>',
-                success: function(data) {
-                   
-                    
-                },
-                 error: function() {
-                    alert('it broke');
-                },
-                complete: function() {
-                    // alert('it completed');
-                }
-            });
-
-            }
-      });
-    
-    $('#inside-toggle').click(function() {
-    // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
-       if(this.checked){
-            $.ajax({
-                type: "GET",
-                url: '/turnOnInsideTemp',
-                data:'_token = <?php echo csrf_token() ?>',
-                success: function(data) {
-                   
-                    
-                },
-                 error: function() {
-                    alert('it broke');
-                },
-                complete: function() {
-                    // alert('it completed');
-                }
-            });
-
-            } else {
-              $.ajax({
-                type: "GET",
-                url: '/turnOffInsideTemp',
-                data:'_token = <?php echo csrf_token() ?>',
-                success: function(data) {
-                   
-                    
-                },
-                 error: function() {
-                    alert('it broke');
-                },
-                complete: function() {
-                    // alert('it completed');
-                }
-            });
-
-            }
-      });
+   
+  
 
     function formatDate(date){
       return formatted_date = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() 
@@ -426,7 +348,8 @@ function lineChart() {
       }
     }
  
-    let getOutsideTemp = setInterval(function run(){
+
+    function getOutsideTemp(){
       $.ajax({
         type:'GET',
         url:'/msg',
@@ -438,15 +361,13 @@ function lineChart() {
           let outsideTemperatureLastUpdated = new Date(data.outsideTemperature[0].last_updated);
           let outsideTemperatureStatus = data.outsideTemperature[0].s_outsideTemp;
 
-            if (outsideTemperatureStatus == 0) {
-              clearInterval(getOutsideTemp);
-            }
+           
 
            $("#outside-temp-reading .temp").text(data.outsideTemperature[0].temperature);
            $("#last-updated-outside-temp").text(formatDate(outsideTemperatureLastUpdated));
 
         
-           if(passedTimeGreaterThan(outsideTemperatureLastUpdated, 10000) && outsideTemperatureStatus == 0) 
+           if(passedTimeGreaterThan(outsideTemperatureLastUpdated, 10000) || outsideTemperatureStatus == 0) 
            {
             $(".outside-power-status").text("Off");
             $(".toggle-outside-temp .checkbox").prop('checked', false);
@@ -460,47 +381,125 @@ function lineChart() {
         },
        
      });
-    }, 2000);
+    }
 
-     let getInsideTemp = setInterval(function run(){
+
+    function getInsideTemp(){
         
-     $.ajax({
-        type:'GET',
-        url:'/msg',
-        data:'_token = <?php echo csrf_token() ?>',
-        success:function(data) {
-          
-          
-          let insideTemperatureLastUpdated = new Date(data.insideTemperature[0].last_updated);
-          let insideTemperatureStatus = data.insideTemperature[0].s_insideTemp;
-
-
-
-            if (insideTemperatureStatus == 0) {
-              clearInterval(getInsideTemp);
-            }
-           $("#inside-temp-reading .temp").text(data.insideTemperature[0].temperature);
-           $("#last-updated-inside-temp").text(formatDate(insideTemperatureLastUpdated));
-
-           if(passedTimeGreaterThan(insideTemperatureLastUpdated, 2000) && insideTemperatureStatus == 0) 
-           {
-            $(".inside-power-status").text("Off");
-            $(".toggle-inside-temp .checkbox").prop('checked', false);
-           } else 
-           {
-            $(".inside-power-status").text("[Active]");
-            $(".toggle-inside-temp .checkbox").prop('checked', true);
-           }
-    
-        },
+        $.ajax({
+           type:'GET',
+           url:'/msg',
+           data:'_token = <?php echo csrf_token() ?>',
+           success:function(data) {
+             
+             
+             let insideTemperatureLastUpdated = new Date(data.insideTemperature[0].last_updated);
+             let insideTemperatureStatus = data.insideTemperature[0].s_insideTemp;
+   
+   
+   
+              
+              $("#inside-temp-reading .temp").text(data.insideTemperature[0].temperature);
+              $("#last-updated-inside-temp").text(formatDate(insideTemperatureLastUpdated));
+   
+              if(passedTimeGreaterThan(insideTemperatureLastUpdated, 2000) || insideTemperatureStatus == 0) 
+              {
+               $(".inside-power-status").text("Off");
+               $(".toggle-inside-temp .checkbox").prop('checked', false);
+              } else 
+              {
+               $(".inside-power-status").text("[Active]");
+               $(".toggle-inside-temp .checkbox").prop('checked', true);
+              }
        
-     });
-
-     }, 2000);
+           },
+          
+        });
+   
+        }
+        let getOutsideTempID = setInterval(getOutsideTemp, 2000);
+        let getInsideTempID = setInterval(getInsideTemp, 2000);
   
   
+  
+    $('#inside-toggle').click(function() {
+    // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
+       if(this.checked){
+            $.ajax({
+                type: "GET",
+                url: '/turnOnInsideTemp',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                  
+                  
+                    
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
 
+            } else {
+              $.ajax({
+                type: "GET",
+                url: '/turnOffInsideTemp',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                   
+                  
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
 
+            }
+      });
+      $('#outside-toggle').click(function() {
+    // alert($(this).attr('id'));  //-->this will alert id of checked checkbox.
+       if(this.checked){
+            $.ajax({
+                type: "GET",
+                url: '/turnOnOutsideTemp',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                  
+                  
+                    
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            } else {
+              $.ajax({
+                type: "GET",
+                url: '/turnOffOutsideTemp',
+                data:'_token = <?php echo csrf_token() ?>',
+                success: function(data) {
+                   
+                  
+                },
+                 error: function() {
+                    alert('it broke');
+                },
+                complete: function() {
+                    // alert('it completed');
+                }
+            });
+
+            }
+      });
     let myIntervalTwo = setInterval(function run(){
 
       $.ajax({
