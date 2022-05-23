@@ -178,6 +178,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: fit-content;
 }
 
 footer {
@@ -295,7 +296,7 @@ footer {
         ;
     }
     .icon {
-        font-size: 1.5rem;
+        font-size: 3rem;
     }
     .color-key-reference .color-key-reference-body {
       
@@ -502,7 +503,7 @@ footer {
 }
 
 .status {
-    width: fit-content;
+
     padding: 1rem
 
 }
